@@ -1,0 +1,5 @@
+<h1 align="center"><%= "#{@season.year} Games" %></h1>
+<div class="link-container">
+	<h3><%= link_to "Seasons", seasons_path %></h3>
+</div>
+<%= react_component("GameTable", props: { games: @games, teams: @teams, awayTeam: "All", homeTeam: "All" }, prerender: false) %>
