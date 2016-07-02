@@ -26,5 +26,9 @@ class Batter < ApplicationRecord
   def righty_stat
     batter_stats.find_by(handed: "R")
   end
+
+  def as_json(options={})
+    { id: id, name: player.name, lineup: lineup, starter: starter, stat: stat.as_json }
+  end
   
 end

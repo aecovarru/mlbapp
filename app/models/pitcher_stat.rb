@@ -12,4 +12,9 @@ class PitcherStat < ApplicationRecord
   def bb
     ibb + ubb
   end
+
+  def as_json(options={})
+    super(options).merge({ip: ip, h: h, bb: bb})
+  end
+
 end

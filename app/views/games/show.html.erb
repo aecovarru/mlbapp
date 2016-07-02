@@ -5,66 +5,7 @@
 	<h3><%= link_to "#{@season.year} Games", season_games_path(@season), { align: "center"} %></h3>
 </div>
 
-<div class="pitchers">
-    <table class="table table-bordered">
-    	<caption><%= "#{@game.away_team.name} Pitchers" %></caption>
-    	<thead>
-	    	<tr><th>Pitching</th><th>IP</th><th>R</th><th>UBB</th><th>IBB</th><th>H</th><th>1B</th><th>2B</th><th>3B</th><th>HR</th><th>SO</th><th>GB</th><th>FB</th><th>LD</th><th>SB</th></tr>
-	    </thead>
-	    <tbody>
-	    	<% @game.away_pitchers.starters.each do |pitcher| %>
-	    	<% stat = pitcher.stat %>
-	    	<tr><td width="200"><%= "#{pitcher.name}" %></td><td><%= stat.ip %></td><td><%= stat.r %></td><td><%= stat.ubb %></td>
-	    		<td><%= stat.ibb %></td><td><%= stat.h %></td><td><%= stat.single %></td><td><%= stat.double %></td><td><%= stat.triple %></td><td><%= stat.homerun %></td><td><%= stat.k %></td><td><%= stat.gb %></td><td><%= stat.fb %></td><td><%= stat.ld %></td><td><%= stat.sb %></td></tr>
-	    	<% end %>
-	    </tbody>
-    </table>
-</div>
-
-<div class="pitchers">
-    <table class="table table-bordered">
-    	<caption><%= "#{@game.home_team.name} Pitchers" %></caption>
-    	<thead>
-	    	<tr><th>Pitching</th><th>IP</th><th>R</th><th>UBB</th><th>IBB</th><th>H</th><th>1B</th><th>2B</th><th>3B</th><th>HR</th><th>SO</th><th>GB</th><th>FB</th><th>LD</th><th>SB</th></tr>
-	    </thead>
-	    <tbody>
-	    	<% @game.home_pitchers.starters.each do |pitcher| %>
-	    	<% stat = pitcher.stat %>
-	    	<tr><td width="200"><%= "#{pitcher.name}" %></td><td><%= stat.ip %></td><td><%= stat.r %></td><td><%= stat.ubb %></td>
-	    		<td><%= stat.ibb %></td><td><%= stat.h %></td><td><%= stat.single %></td><td><%= stat.double %></td><td><%= stat.triple %></td><td><%= stat.homerun %></td><td><%= stat.k %></td><td><%= stat.gb %></td><td><%= stat.fb %></td><td><%= stat.ld %></td><td><%= stat.sb %></td></tr>
-	    	<% end %>
-	    </tbody>
-    </table>
-</div>
-
-<div class="batters">
-    <table class="table table-bordered">
-    	<caption><%= "#{@game.away_team.name} Batters" %></caption>
-    	<thead>
-	    	<tr><th>Batting</th><th>UBB</th><th>IBB</th><th>H</th><th>1B</th><th>2B</th><th>3B</th><th>HR</th><th>SO</th><th>GB</th><th>FB</th><th>LD</th></tr>
-	    </thead>
-	    <tbody>
-	    	<% @game.away_batters.starters.each do |batter| %>
-	    	<% stat = batter.stat %>
-	    	<tr><td width="200"><%= "#{batter.lineup}. #{batter.name}" %></td><td><%= stat.ubb %></td>
-	    		<td><%= stat.ibb %></td><td><%= stat.h %></td><td><%= stat.single %></td><td><%= stat.double %></td><td><%= stat.triple %></td><td><%= stat.homerun %></td><td><%= stat.k %></td><td><%= stat.gb %></td><td><%= stat.fb %></td><td><%= stat.ld %></td></tr>
-	    	<% end %>
-	    </tbody>
-    </table>
-</div>
-
-<div class="batters">
-    <table class="table table-bordered">
-    	<caption><%= "#{@game.home_team.name} Batters" %></caption>
-    	<thead>
-	    	<tr><th>Batting</th><th>UBB</th><th>IBB</th><th>H</th><th>1B</th><th>2B</th><th>3B</th><th>HR</th><th>SO</th><th>GB</th><th>FB</th><th>LD</th></tr>
-	    </thead>
-	    <tbody>
-	    	<% @game.home_batters.starters.each do |batter| %>
-	    	<% stat = batter.stat %>
-	    	<tr><td width="200"><%= "#{batter.lineup}. #{batter.name}" %></td><td><%= stat.ubb %></td>
-	    		<td><%= stat.ibb %></td><td><%= stat.h %></td><td><%= stat.single %></td><td><%= stat.double %></td><td><%= stat.triple %></td><td><%= stat.homerun %></td><td><%= stat.k %></td><td><%= stat.gb %></td><td><%= stat.fb %></td><td><%= stat.ld %></td></tr>
-	    	<% end %>
-	    </tbody>
-    </table>
-</div>
+<%= react_component("PitcherTable", props: { pitchers: @game.away_pitchers, team: @game.away_team }, prerender: false) %>
+<%= react_component("PitcherTable", props: { pitchers: @game.home_pitchers, team: @game.home_team }, prerender: false) %>
+<%= react_component("BatterTable", props: { batters: @game.away_batters, team: @game.away_team }, prerender: false) %>
+<%= react_component("BatterTable", props: { batters: @game.home_batters, team: @game.home_team }, prerender: false) %>

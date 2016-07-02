@@ -13,19 +13,19 @@ class Game < ApplicationRecord
   end
 
   def away_batters
-    batters.where(team: away_team)
+    batters.where(team: away_team).order("lineup")
   end
 
   def home_batters
-    batters.where(team: home_team)
+    batters.where(team: home_team).order("lineup")
   end
 
   def away_pitchers
-    pitchers.where(team: away_team)
+    pitchers.where(team: away_team).order("id")
   end
 
   def home_pitchers
-    pitchers.where(team: home_team)
+    pitchers.where(team: home_team).order("id")
   end
 
   def as_json(options={})

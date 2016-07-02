@@ -27,13 +27,8 @@ class Pitcher < ApplicationRecord
     pitcher_stats.find_by(handed: "R")
   end
 
-
-
-
-  # Stats
-
-  def ip
-    outs/3 + outs%3/10.0
+  def as_json(options={})
+    { id: id, name: player.name, starter: starter, stat: stat.as_json }
   end
   
 end

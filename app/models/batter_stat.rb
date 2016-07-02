@@ -8,4 +8,9 @@ class BatterStat < ApplicationRecord
   def bb
     ibb + ubb
   end
+
+  def as_json(options={})
+    super(options).merge({h: h, bb: bb})
+  end
+  
 end

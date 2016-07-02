@@ -60,8 +60,12 @@ ActiveRecord::Schema.define(version: 20160701020812) do
     t.integer "game_date_id"
     t.integer "away_team_id"
     t.integer "home_team_id"
-    t.integer "num",          default: 0
-    t.integer "hour",         default: 0
+    t.integer "num",             default: 0
+    t.integer "hour",            default: 0
+    t.string  "away_money_line", default: ""
+    t.string  "home_money_line", default: ""
+    t.string  "away_total",      default: ""
+    t.string  "home_total",      default: ""
     t.index ["away_team_id"], name: "index_games_on_away_team_id", using: :btree
     t.index ["game_date_id"], name: "index_games_on_game_date_id", using: :btree
     t.index ["home_team_id"], name: "index_games_on_home_team_id", using: :btree

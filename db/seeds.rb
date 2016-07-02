@@ -11,5 +11,3 @@ GamesJob.perform_now
 PlayersJob.perform_now
 GamePlayersJob.perform_now(Game.all)
 PlayerStatJob.perform_now(Game.all)
-
-

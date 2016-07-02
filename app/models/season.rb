@@ -8,4 +8,5 @@ class Season < ApplicationRecord
   def as_json(options={})
     { id: id, year: year, games_link: "seasons/#{id}/games" }
   end
+  
 end
