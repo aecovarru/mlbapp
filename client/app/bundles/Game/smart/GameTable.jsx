@@ -38,15 +38,16 @@ export default class GameTable extends React.Component {
     this.state.games.forEach(function(game){
       if ((awayAll || awayTeam === game.away_team) && (homeAll || homeTeam === game.home_team)){
         games.push(game);
-        awayTeams.add(game.away_team);
+      }
+      if (awayTeam === game.away_team){
         homeTeams.add(game.home_team);
       }
+      if (homeTeam === game.home_team){
+        awayTeams.add(game.away_team);
+      }
     });
-    var count = 0;
-    if (awayAll) { count += 1; }
-    if (homeAll) { count += 1; }
-    awayTeams = count == 2 || count == 0 || (count == 1 && homeAll) ? this.state.teams : Array.from(awayTeams).sort();
-    homeTeams = count == 2 || count == 0 || (count == 1 && awayAll) ? this.state.teams : Array.from(homeTeams).sort();
+    awayTeams = homeAll ? this.state.teams : Array.from(awayTeams).sort();
+    homeTeams = awayAll ? this.state.teams : Array.from(homeTeams).sort();
     return (
       <div className="games">
         <table className="table table-bordered">
