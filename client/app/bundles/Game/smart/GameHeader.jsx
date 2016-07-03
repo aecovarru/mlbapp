@@ -13,8 +13,8 @@ export default class GameHeader extends React.Component {
       <thead>
         <tr>
           <th width="200">Date Range<DatePicker selected={this.props.startDate} startDate={this.props.startDate} endDate={this.props.endDate} onChange={this.props.handleChangeStart} /></th>
-          <th><DropDown id="Away Team" selected={this.props.awayTeam} teams={this.props.teams} onUserInput={this.props.handleAwayInput}/></th>
-          <th><DropDown id="Home Team" selected={this.props.homeTeam} teams={this.props.teams} onUserInput={this.props.handleHomeInput}/></th>
+          <th><DropDown id="Away Team" selected={this.props.awayTeam} teams={this.props.awayTeams} onUserInput={this.props.handleAwayInput}/></th>
+          <th><DropDown id="Home Team" selected={this.props.homeTeam} teams={this.props.homeTeams} onUserInput={this.props.handleHomeInput}/></th>
         </tr>
       </thead>
     );

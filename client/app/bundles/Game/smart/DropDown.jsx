@@ -13,13 +13,12 @@ export default class DropDown extends React.Component {
 
   render() {
     var options = this.props.teams.map(function(team){
-      return <option value={team.name}>{team.name}</option>;
+      return <option value={team}>{team}</option>;
     });
     return (
       <div>
         <label htmlFor={this.props.id}>{this.props.id}</label>
         <select onChange={this.handleChange} value={this.props.selected} id={this.props.id}>
-        <option value="All">All</option>
         {options}
         </select>
       </div>
