@@ -1,9 +1,9 @@
-<h1 align="center"><%= @game.away_team.name %> @ <%= @game.home_team.name %></h1>
-<h2 align="center"><%= @game.game_date.date %></h2>
-
 <div class="link-container">
 	<h3><%= link_to "#{@season.year} Games", season_games_path(@season), { align: "center"} %></h3>
 </div>
+
+<h1 align="center"><%= @game.away_team.name %> @ <%= @game.home_team.name %></h1>
+<h2 align="center"><%= @game.as_json[:date] %></h2>
 
 <%= react_component("PitcherTable", props: { pitchers: @game.away_pitchers, team: @game.away_team }, prerender: false) %>
 <%= react_component("PitcherTable", props: { pitchers: @game.home_pitchers, team: @game.home_team }, prerender: false) %>

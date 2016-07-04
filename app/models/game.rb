@@ -29,7 +29,8 @@ class Game < ApplicationRecord
   end
 
   def as_json(options={})
-    { id: id, date: game_date.date.to_s, away_team: away_team.name, home_team: home_team.name, show_link: "games/#{id}" }
+    date = game_date.date
+    { id: id, date: date.strftime("%Y/%m/%d"), year: date.year, month: date.month, day: date.day, away_team: away_team.name, home_team: home_team.name, show_link: "games/#{id}" }
   end
 
 end
