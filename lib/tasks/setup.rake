@@ -2,9 +2,11 @@ namespace :setup do
 
   task test: :environment do
 
-    games = Game.all[0..4]
-    games.each do |game|
-      TimeJob.perform_now(game)
+    Game.all.each do |game|
+      weather = game.weathers.first
+      if weather && weather.hour == game.hour
+        game.weathers.destroy_all
+      end
     end
 
   end
