@@ -1,0 +1,18 @@
+<div class="link-container">
+	<h3><%= link_to "#{@season.year} Games", season_games_path(@season), { align: "center"} %></h3>
+</div>
+
+<div class="game-header">
+	<h2><%= "#{@game.away_team.name}: #{@game.away_score} @ #{@game.home_team.name}: #{@game.home_score}" %></h2>
+	<h2><%= @game.as_json[:date] %></h2>
+	<h3><%= "Odds: #{@game.away_money_line} @ #{@game.home_money_line}"%></h3>
+	<h3><%= "Totals: #{@game.away_total} @ #{@game.home_total}"%></h3>
+	<h3><%= "Gametime: #{@game.time} Local Time"%></h3>
+</div>
+
+<%= react_component("WeatherTable", props: { weathers: @game.weathers.order("hour") }, prerender: false) %>
+
+<%= react_component("PitcherTable", props: { pitchers: @game.away_pitchers, team: @game.away_team }, prerender: false) %>
+<%= react_component("PitcherTable", props: { pitchers: @game.home_pitchers, team: @game.home_team }, prerender: false) %>
+<%= react_component("BatterTable", props: { batters: @game.away_batters, team: @game.away_team }, prerender: false) %>
+<%= react_component("BatterTable", props: { batters: @game.home_batters, team: @game.home_team }, prerender: false) %>
