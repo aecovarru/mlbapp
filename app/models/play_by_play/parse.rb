@@ -24,8 +24,6 @@ module PlayByPlay
       doc = download_document(url)
       return unless doc
 
-      doc.
-
       doc.css("#play_by_play td").each do |element|
         if new_inning(element)
           create_inning(element)

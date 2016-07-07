@@ -124,5 +124,4 @@ class BettingJob < ApplicationJob
       end  
     end
 
-
 end
