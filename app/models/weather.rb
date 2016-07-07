@@ -2,8 +2,8 @@ class Weather < ApplicationRecord
   belongs_to :game
 
   def as_json(option={})
-    time = convert_time(game.time, self, game.home_team)
-    super(option).merge({time: time})
+    # time = convert_time(game.time, self, game.home_team)
+    super(option).merge({time: "#{hour-12}:00 PM"})
   end
 
 

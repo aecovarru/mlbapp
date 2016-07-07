@@ -8,18 +8,19 @@ export default class WeatherRow extends React.Component {
 
   render() {
     var game = this.props.game;
+    var degree = String.fromCharCode(176) + "F";
     return (
       <tbody>
         {this.props.weathers.map(function(weather, index){
           return <tr>
                     <td>{weather.time}</td>
-                    <td>{weather.temp}</td>
-                    <td>{weather.dew}</td>
+                    <td>{weather.temp + degree}</td>
+                    <td>{weather.dew + degree}</td>
                     <td>{weather.wind_speed} mph {weather.wind_dir}</td>
-                    <td>{weather.pressure}</td>
-                    <td>{weather.humidity}</td>
-                    <td>{weather.precip}</td>
-                    <td>{weather.air_density}</td>
+                    <td>{weather.pressure} in</td>
+                    <td>{weather.humidity}%</td>
+                    <td>{weather.precip} in</td>
+                    <td>{weather.air_density + " kg/m"}<sup>3</sup></td>
                   </tr>;
         })}
       </tbody>
