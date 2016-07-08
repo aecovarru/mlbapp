@@ -5,9 +5,12 @@ class WeatherJob < ApplicationJob
 
   def perform(*args)
     # Do something later
-    games = args[0]
-    games.each do |game|
-      create_weathers(game)
+    if args[0].respond_to?(:each)
+      args[0].each do |game|
+        create_weathers(game)
+      end
+    else
+      create_weathers(args[0])
     end
   end
 
