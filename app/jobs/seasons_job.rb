@@ -2,7 +2,7 @@ class SeasonsJob < ApplicationJob
   queue_as :default
 
   def perform(*args)
-    2016.downto(2011) do |year|
+    2016.downto(2001) do |year|
       season = Season.find_or_create_by(year: year)
       unless season.teams.size == 30
         add_teams_to_season(season)

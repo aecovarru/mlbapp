@@ -29,9 +29,14 @@ class Game < ApplicationRecord
     pitchers.where(team: home_team).order("id")
   end
 
+  def weather
+    weathers.find_by(hour: hour)
+  end
+
   def as_json(options={})
     date = game_date.date
-    { id: id, date: date.strftime("%Y/%m/%d"), year: date.year, month: date.month, day: date.day, away_team: away_team.name, home_team: home_team.name, show_link: "games/#{id}" }
+    { id: id, date: date.strftime("%Y/%m/%d"), year: date.year, month: date.month, day: date.day, away_team: away_team.name, home_team: home_team.name,
+      away_score: away_score, home_score: home_score, show_link: "games/#{id}", weather: weather.as_json }
   end
 
 end

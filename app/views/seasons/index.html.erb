@@ -1,3 +1,6 @@
 <p id="notice"><%= notice %></p>
 <h1 align="center">Seasons</h1>
+<div class="link-container">
+	<%= link_to "Logout", controller: "access", action: "logout" %>
+</div>
 <%= react_component("SeasonTable", props: @season_props, prerender: false) %>

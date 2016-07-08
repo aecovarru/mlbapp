@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160706225510) do
+ActiveRecord::Schema.define(version: 20160706055218) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,11 +62,11 @@ ActiveRecord::Schema.define(version: 20160706225510) do
     t.integer "home_team_id"
     t.integer "num",             default: 0
     t.integer "hour",            default: 0
+    t.string  "time",            default: ""
     t.string  "away_money_line", default: ""
     t.string  "home_money_line", default: ""
     t.string  "away_total",      default: ""
     t.string  "home_total",      default: ""
-    t.string  "time",            default: ""
     t.integer "away_score",      default: 0
     t.integer "home_score",      default: 0
     t.index ["away_team_id"], name: "index_games_on_away_team_id", using: :btree

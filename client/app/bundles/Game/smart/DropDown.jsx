@@ -17,7 +17,7 @@ export default class DropDown extends React.Component {
     });
     return (
       <div>
-        <label htmlFor={this.props.id}>{this.props.id}</label>
+        <label htmlFor={this.props.id}>{this.props.id}</label><br />
         <select onChange={this.handleChange} value={this.props.selected} id={this.props.id}>
         {options}
         </select>

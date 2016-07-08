@@ -3,16 +3,23 @@ class GamePlayersJob < ApplicationJob
   include Download
   def perform(*args)
     # Do something later
-    games = args[0]
-    games.each do |game|
+    if args[0].respond_to?(:each)
+      args[0].each do |game|
+        run(game)
+      end
+    else
+      run(args[0])
+    end
+  end
+
+  private
+
+    def run(game)
       url = "http://www.baseball-reference.com/boxes/#{game.home_team.alt_abbr}/#{game.url}.shtml"
       puts url
       doc = download_document(url)
       create_players(doc, game)
     end
-  end
-
-  private
 
     def create_players(doc, game)
       create_batters(doc, game)

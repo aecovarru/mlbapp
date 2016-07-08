@@ -10,7 +10,22 @@ export default class GameRow extends React.Component {
     return (
       <tbody>
         {this.props.games.map(function(game, index){
-          return <tr><td><a href={game.show_link}>{game.date}</a></td><td>{game.away_team}</td><td>{game.home_team}</td></tr>;
+          var temp, dew, pressure;
+          if (game.weather != null){
+            var weather = game.weather;
+            temp = weather.temp;
+            dew = weather.dew;
+            pressure = weather.pressure;
+          }
+          return <tr>
+                     <td><a href={game.show_link}>{game.date}</a></td>
+                     <td>{game.away_team}-{game.away_score}</td>
+                     <td>{game.home_team}-{game.home_score}</td>
+                     <td>{temp}</td>
+                     <td>{dew}</td>
+                     <td>{pressure}</td>
+                     <td></td>
+                 </tr>;
         })}
       </tbody>
     );

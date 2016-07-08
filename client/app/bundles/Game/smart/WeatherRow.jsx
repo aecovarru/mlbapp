@@ -7,7 +7,6 @@ export default class WeatherRow extends React.Component {
   }
 
   render() {
-    var game = this.props.game;
     var degree = String.fromCharCode(176) + "F";
     return (
       <tbody>

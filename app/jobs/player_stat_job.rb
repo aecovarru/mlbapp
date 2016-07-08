@@ -3,9 +3,12 @@ class PlayerStatJob < ApplicationJob
 
   def perform(*args)
     # Do something later
-    games = args[0]
-    games.each do |game|
-      PlayByPlay::Parse.new(game).run
+    if args[0].respond_to?(:each)
+      args[0].each do |game|
+        PlayByPlay::Parse.new(game).run
+      end
+    else
+      PlayByPlay::Parse.new(args[0]).run
     end
   end
 end

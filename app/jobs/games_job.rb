@@ -2,10 +2,15 @@ class GamesJob < ApplicationJob
   queue_as :default
   include Download
   def perform(*args)
-    Season.all.each do |season|
-    # season = Season.first
-      season.teams.each do |team|
-        create_games(season, team)
+    if args[0].respond_to?(:each)
+      args[0].each do |season|
+        season.teams.each do |team|
+          create_games(season, team)
+        end
+      end
+    else
+      args[0].teams.each do |team|
+        create_games(args[0], team)
       end
     end
   end
