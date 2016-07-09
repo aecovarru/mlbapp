@@ -22,9 +22,6 @@ export default class GameRow extends React.Component {
                      <td>{game.away_team}-{game.away_score}</td>
                      <td>{game.home_team}-{game.home_score}</td>
                      <td>{temp}</td>
-                     <td>{dew}</td>
-                     <td>{pressure}</td>
-                     <td></td>
                  </tr>;
         })}
       </tbody>

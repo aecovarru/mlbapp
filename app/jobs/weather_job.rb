@@ -22,6 +22,7 @@ class WeatherJob < ApplicationJob
       @hour = game.hour == 0 ? 18 : game.hour
       end_hour = @hour + 3
       url = find_url(team, date)
+      puts game.id
       doc = nil
       until doc
         doc = download_document(url)

@@ -12,10 +12,30 @@ export default class GameTable extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = { games: this.props.games, teams: this.props.teams.map(function(team){ return team.name; }),
-    awayTeam: this.props.awayTeam, homeTeam: this.props.homeTeam, selected: null};
-    _.bindAll(this, ['handleAwayInput', 'handleHomeInput', 'handleDateChange']);
+    awayTeam: this.props.awayTeam, homeTeam: this.props.homeTeam, selected: null, minTempVal: null, maxTempVal: null};
+    _.bindAll(this, ['handleAwayInput', 'handleHomeInput', 'handleDateChange', 'handleTempMinInput', 'handleTempMaxInput']);
     this.state.teams.push("All");
     this.state.teams.sort();
+
+    var minTemp, maxTemp;
+    this.state.games.forEach(function(game){
+      var weather = game.weather;
+      if (weather != null){
+        var temp = weather.temp;
+        if (minTemp == null || minTemp >= temp){
+          minTemp = temp;
+        }
+        if (maxTemp == null || maxTemp <= temp){
+          maxTemp = temp;
+        }
+      }
+    });
+
+    this.state.minTemp = minTemp;
+    this.state.maxTemp = maxTemp;
+    this.state.minTempVal = minTemp;
+    this.state.maxTempVal = maxTemp;
+
   }
 
   handleDateChange(date){
@@ -30,6 +50,16 @@ export default class GameTable extends React.Component {
     this.setState({homeTeam: home});
   }
 
+  handleTempMinInput(e){
+    const minTempVal = e.target.value;
+    this.setState({minTempVal: minTempVal});
+  }
+
+  handleTempMaxInput(e){
+    const maxTempVal = e.target.value;
+    this.setState({maxTempVal: maxTempVal});
+  }
+
 
   render() {
 
@@ -42,17 +72,28 @@ export default class GameTable extends React.Component {
     var awayTeams = new Set(["All"]);
     var homeTeams = new Set(["All"]);
 
+    var maxTempVal = this.state.maxTempVal;
+    var minTempVal = this.state.minTempVal;
+
+
+
     this.state.games.forEach(function(game){
+      var weather = game.weather;
       if ((selected === null || (selected.date() === game.day && selected.month()+1 === game.month)) &&
           (awayAll || awayTeam === game.away_team) && (homeAll || homeTeam === game.home_team)){
-        games.push(game);
+
+        if (weather == null || (maxTempVal >= weather.temp && minTempVal <= weather.temp)){
+          games.push(game);
+        }
       }
+
       if (awayTeam === game.away_team){
         homeTeams.add(game.home_team);
       }
       if (homeTeam === game.home_team){
         awayTeams.add(game.away_team);
       }
+
     });
 
     awayTeams = homeAll ? this.state.teams : Array.from(awayTeams).sort();
@@ -62,12 +103,15 @@ export default class GameTable extends React.Component {
     var firstGame = this.state.games[this.state.games.length - 1];
     var startDate = moment().set({'year': firstGame.year, 'month': firstGame.month-1, 'date': firstGame.day});
     var endDate = moment().set({'year': lastGame.year, 'month': lastGame.month-1, 'date': lastGame.day});
-    
 
     return (
       <div className="games">
         <table className="table table-bordered">
-          <GameHeader selected={selected} startDate={startDate} endDate={endDate} awayTeams={awayTeams} homeTeams={homeTeams} awayTeam={awayTeam} homeTeam={homeTeam} handleDateChange={this.handleDateChange} handleAwayInput={this.handleAwayInput} handleHomeInput={this.handleHomeInput}/>
+          <GameHeader minTemp={this.state.minTemp} maxTemp={this.state.maxTemp} minTempVal={this.state.minTempVal} maxTempVal={this.state.maxTempVal}
+                      selected={selected} startDate={startDate} endDate={endDate}
+                      awayTeams={awayTeams} homeTeams={homeTeams}
+                      awayTeam={awayTeam} homeTeam={homeTeam}
+                      handleDateChange={this.handleDateChange} handleAwayInput={this.handleAwayInput} handleHomeInput={this.handleHomeInput} handleTempMinInput={this.handleTempMinInput} handleTempMaxInput={this.handleTempMaxInput}/>
           <GameRow games={games} />
         </table>
       </div>
