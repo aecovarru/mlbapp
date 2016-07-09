@@ -13,7 +13,7 @@ export default class GameTable extends React.Component {
     super(props, context);
     this.state = { games: this.props.games, teams: this.props.teams.map(function(team){ return team.name; }),
     awayTeam: this.props.awayTeam, homeTeam: this.props.homeTeam, selected: null, minTempVal: null, maxTempVal: null};
-    _.bindAll(this, ['handleAwayInput', 'handleHomeInput', 'handleDateChange', 'handleTempMinInput', 'handleTempMaxInput']);
+    _.bindAll(this, ['handleAwayInput', 'handleHomeInput', 'handleDateChange', 'handleTempMinInput', 'handleTempMaxInput', 'dateBool']);
     this.state.teams.push("All");
     this.state.teams.sort();
 
@@ -60,44 +60,42 @@ export default class GameTable extends React.Component {
     this.setState({maxTempVal: maxTempVal});
   }
 
+  teamBool(game){
+    var awayBool = this.state.awayTeam == "All" || this.state.awayTeam == game.away_team;
+    var homeBool = this.state.homeTeam == "All" || this.state.homeTeam == game.home_team;
+    return awayBool && homeBool;
+  }
+
+  dateBool(game){
+    var selected = this.state.selected;
+    return (selected === null || (selected.date() === game.day && selected.month()+1 === game.month));
+  }
+
+  weatherBool(game){
+    var weather = game.weather;
+    return weather == null || (this.state.maxTempVal >= weather.temp && this.state.minTempVal <= weather.temp);
+  }
+
 
   render() {
-
-    var awayTeam = this.state.awayTeam;
-    var homeTeam = this.state.homeTeam;
-    var selected = this.state.selected;
-    var awayAll = awayTeam === "All";
-    var homeAll = homeTeam === "All";
     var games = [];
     var awayTeams = new Set(["All"]);
     var homeTeams = new Set(["All"]);
 
-    var maxTempVal = this.state.maxTempVal;
-    var minTempVal = this.state.minTempVal;
-
-
-
     this.state.games.forEach(function(game){
-      var weather = game.weather;
-      if ((selected === null || (selected.date() === game.day && selected.month()+1 === game.month)) &&
-          (awayAll || awayTeam === game.away_team) && (homeAll || homeTeam === game.home_team)){
-
-        if (weather == null || (maxTempVal >= weather.temp && minTempVal <= weather.temp)){
-          games.push(game);
-        }
+      if (this.dateBool(game) && this.teamBool(game) && this.weatherBool(game)){
+        games.push(game);
       }
+      // if (this.state.awayTeam == game.away_team){
+        awayTeams.add(game.home_team);
+      // }
+      // if (this.state.homeTeam == game.home_team){
+        homeTeams.add(game.away_team);
+      // }
+    }.bind(this));
 
-      if (awayTeam === game.away_team){
-        homeTeams.add(game.home_team);
-      }
-      if (homeTeam === game.home_team){
-        awayTeams.add(game.away_team);
-      }
-
-    });
-
-    awayTeams = homeAll ? this.state.teams : Array.from(awayTeams).sort();
-    homeTeams = awayAll ? this.state.teams : Array.from(homeTeams).sort();
+    awayTeams = this.state.awayTeam == "All" ? this.state.teams : Array.from(awayTeams).sort();
+    homeTeams = this.state.homeTeam == "All" ? this.state.teams : Array.from(homeTeams).sort();
 
     var lastGame = this.state.games[0];
     var firstGame = this.state.games[this.state.games.length - 1];
@@ -106,11 +104,12 @@ export default class GameTable extends React.Component {
 
     return (
       <div className="games">
+        <p>{this.state.awayTeam}</p>
         <table className="table table-bordered">
           <GameHeader minTemp={this.state.minTemp} maxTemp={this.state.maxTemp} minTempVal={this.state.minTempVal} maxTempVal={this.state.maxTempVal}
-                      selected={selected} startDate={startDate} endDate={endDate}
+                      selected={this.state.selected} startDate={startDate} endDate={endDate}
                       awayTeams={awayTeams} homeTeams={homeTeams}
-                      awayTeam={awayTeam} homeTeam={homeTeam}
+                      awayTeam={this.state.awayTeam} homeTeam={this.state.homeTeam}
                       handleDateChange={this.handleDateChange} handleAwayInput={this.handleAwayInput} handleHomeInput={this.handleHomeInput} handleTempMinInput={this.handleTempMinInput} handleTempMaxInput={this.handleTempMaxInput}/>
           <GameRow games={games} />
         </table>
