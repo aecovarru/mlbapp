@@ -86,12 +86,12 @@ export default class GameTable extends React.Component {
       if (this.dateBool(game) && this.teamBool(game) && this.weatherBool(game)){
         games.push(game);
       }
-      // if (this.state.awayTeam == game.away_team){
-        awayTeams.add(game.home_team);
-      // }
-      // if (this.state.homeTeam == game.home_team){
-        homeTeams.add(game.away_team);
-      // }
+      if (this.state.awayTeam === game.away_team){
+        homeTeams.add(game.home_team);
+      }
+      if (this.state.homeTeam === game.home_team){
+        awayTeams.add(game.away_team);
+      }
     }.bind(this));
 
     awayTeams = this.state.awayTeam == "All" ? this.state.teams : Array.from(awayTeams).sort();
