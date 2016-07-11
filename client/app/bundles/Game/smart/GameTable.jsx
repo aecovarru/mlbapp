@@ -85,17 +85,13 @@ export default class GameTable extends React.Component {
     this.state.games.forEach(function(game){
       if (this.dateBool(game) && this.teamBool(game) && this.weatherBool(game)){
         games.push(game);
-      }
-      if (this.state.awayTeam === game.away_team){
         homeTeams.add(game.home_team);
-      }
-      if (this.state.homeTeam === game.home_team){
         awayTeams.add(game.away_team);
       }
     }.bind(this));
 
-    awayTeams = this.state.awayTeam == "All" ? this.state.teams : Array.from(awayTeams).sort();
-    homeTeams = this.state.homeTeam == "All" ? this.state.teams : Array.from(homeTeams).sort();
+    awayTeams = this.state.homeTeam == "All" ? this.state.teams : Array.from(awayTeams).sort();
+    homeTeams = this.state.awayTeam == "All" ? this.state.teams : Array.from(homeTeams).sort();
 
     var lastGame = this.state.games[0];
     var firstGame = this.state.games[this.state.games.length - 1];
@@ -104,7 +100,7 @@ export default class GameTable extends React.Component {
 
     return (
       <div className="games">
-        <p>{this.state.awayTeam}</p>
+        <p>{this.state.awayTeam}{awayTeams.length}</p>
         <table className="table table-bordered">
           <GameHeader minTemp={this.state.minTemp} maxTemp={this.state.maxTemp} minTempVal={this.state.minTempVal} maxTempVal={this.state.maxTempVal}
                       selected={this.state.selected} startDate={startDate} endDate={endDate}

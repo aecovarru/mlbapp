@@ -17,7 +17,10 @@ class GamePlayersJob < ApplicationJob
     def run(game)
       url = "http://www.baseball-reference.com/boxes/#{game.home_team.alt_abbr}/#{game.url}.shtml"
       puts url
-      doc = download_document(url)
+      doc = nil
+      until doc
+        doc = download_document(url)
+      end
       create_players(doc, game)
     end
 

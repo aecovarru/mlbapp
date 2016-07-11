@@ -4,7 +4,8 @@
 # TimeJob.perform_now(Game.all)
 # PlayersJob.perform_now(Season.all)
 # GamePlayersJob.perform_now(Game.all)
-# PlayerStatJob.perform_now(Game.all)
-# WeatherJob.perform_now(Season.find_by_year(2016).games)
-# BettingJob.perform_now(GameDate.all)
-WeatherJob.perform_now(Game.find(842))
+Season.where("id > 5").each do |season|
+  PlayerStatJob.perform_now(season.games)
+end
+WeatherJob.perform_now(Game.all)
+BettingJob.perform_now(GameDate.all)
