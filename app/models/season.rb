@@ -1,4 +1,5 @@
 class Season < ApplicationRecord
+  validates_presence_of :year
   has_and_belongs_to_many :teams
   has_many :game_dates, dependent: :destroy
   has_many :games,     dependent: :destroy
