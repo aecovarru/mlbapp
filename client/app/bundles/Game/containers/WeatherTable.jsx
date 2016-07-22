@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
-import WeatherHeader from './WeatherHeader';
-import WeatherRow from './WeatherRow';
+import { WeatherHeader, WeatherRow } from '../components/WeatherWidget';
 
 export default class WeatherTable extends React.Component {
   static propTypes = {
@@ -9,7 +8,6 @@ export default class WeatherTable extends React.Component {
 
   constructor(props, context){
   	super(props, context);
-  	this.state = { weathers: this.props.weathers }
   }
 
   render() {
@@ -19,7 +17,7 @@ export default class WeatherTable extends React.Component {
         <table className="table table-bordered">
           <caption>Weather</caption>
           <WeatherHeader />
-          <WeatherRow weathers={this.state.weathers} />
+          <WeatherRow weathers={this.props.weathers} />
         </table>
       </div>
   	)

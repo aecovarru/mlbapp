@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 import _ from 'lodash';
 import moment from 'moment';
-import GameHeader from './GameHeader'
-import GameRow from './GameRow'
+import { GameHeader, GameRow } from '../components/GameWidget'
+import { createStore } from 'redux'
 
 export default class GameTable extends React.Component {
   static propTypes = {
@@ -100,7 +100,6 @@ export default class GameTable extends React.Component {
 
     return (
       <div className="games">
-        <p>{this.state.awayTeam}{awayTeams.length}</p>
         <table className="table table-bordered">
           <GameHeader minTemp={this.state.minTemp} maxTemp={this.state.maxTemp} minTempVal={this.state.minTempVal} maxTempVal={this.state.maxTempVal}
                       selected={this.state.selected} startDate={startDate} endDate={endDate}

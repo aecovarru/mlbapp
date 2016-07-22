@@ -1,5 +1,5 @@
 import React from 'react';
-import Season from '../smart/Season';
+import Season from '../containers/Season';
 
 export default (props) => (
   <Season {...props} />

@@ -3,7 +3,6 @@ class Batter < ApplicationRecord
   belongs_to :player
   belongs_to :team
   has_many :batter_stats, dependent: :destroy
-  validates_presence_of :player, :team, :owner
 
   scope :starters, -> { where(starter: true).order("lineup ASC")}
   

@@ -21,8 +21,8 @@ class WeatherJob < ApplicationJob
       team = game.home_team
       @hour = game.hour == 0 ? 18 : game.hour
       end_hour = @hour + 3
-      url = find_url(team, date)
       puts game.id
+      url = find_url(team, date)
       doc = nil
       until doc
         doc = download_document(url)
@@ -100,6 +100,6 @@ class WeatherJob < ApplicationJob
       "https://www.wunderground.com/history/airport/KSPG/year/month/day/DailyHistory.html?req_city=Saint+Petersburg&req_state=FL&req_statename=Florida&reqdb.zip=33701&reqdb.magic=1&reqdb.wmo=99999", "https://www.wunderground.com/history/airport/KBOS/year/month/day/DailyHistory.html?req_city=Boston&req_state=MA&req_statename=Massachusetts&reqdb.zip=02101&reqdb.magic=1&reqdb.wmo=99999", "https://www.wunderground.com/history/airport/KLUK/year/month/day/DailyHistory.html?req_city=Cincinnati&req_state=OH&req_statename=Ohio&reqdb.zip=45201&reqdb.magic=1&reqdb.wmo=99999",
       "https://www.wunderground.com/history/airport/KAPA/year/month/day/DailyHistory.html?req_city=Denver&req_statename=Colorado", "https://www.wunderground.com/history/airport/KMKC/year/month/day/DailyHistory.html?req_city=Kansas+City&req_state=MO&req_statename=Missouri&reqdb.zip=64106&reqdb.magic=1&reqdb.wmo=99999", "https://www.wunderground.com/history/airport/KDET/year/month/day/DailyHistory.html?req_city=Detroit&req_state=MI&req_statename=Michigan&reqdb.zip=48201&reqdb.magic=1&reqdb.wmo=99999",
       "https://www.wunderground.com/history/airport/KMIC/year/month/day/DailyHistory.html?req_city=Minneapolis&req_state=MN&req_statename=Minnesota&reqdb.zip=55401&reqdb.magic=1&reqdb.wmo=99999", "https://www.wunderground.com/history/airport/KMDW/year/month/day/DailyHistory.html?req_city=Chicago&req_state=IL&req_statename=Illinois&reqdb.zip=60290&reqdb.magic=1&reqdb.wmo=99999", "https://www.wunderground.com/history/airport/KHPN/year/month/day/DailyHistory.html?req_city=Bronxville&req_state=NY&req_statename=New+York&reqdb.zip=10708&reqdb.magic=1&reqdb.wmo=99999",
-      "https://www.wunderground.com/history/airport/KOPF/year/month/day/DailyHistory.html?req_city=Opa%20Locka&req_state=FL&reqdb.zip=33056&reqdb.magic=1&reqdb.wmo=99999", "https://www.wunderground.com/history/airport/KSPG/year/month/day/DailyHistory.html?req_city=Saint+Petersburg&req_state=FL&req_statename=Florida&reqdb.zip=33701&reqdb.magic=1&reqdb.wmo=99999", "https://www.wunderground.com/history/airport/CWTA/2016/05/20/DailyHistory.html?req_city=Montreal&req_statename=Quebec&reqdb.zip=00000&reqdb.magic=20&reqdb.wmo=71612"]
+      "https://www.wunderground.com/history/airport/KOPF/year/month/day/DailyHistory.html?req_city=Opa%20Locka&req_state=FL&reqdb.zip=33056&reqdb.magic=1&reqdb.wmo=99999", "https://www.wunderground.com/history/airport/KSPG/year/month/day/DailyHistory.html?req_city=Saint+Petersburg&req_state=FL&req_statename=Florida&reqdb.zip=33701&reqdb.magic=1&reqdb.wmo=99999", "https://www.wunderground.com/history/airport/CWTA/2016/05/20/DailyHistory.html?req_city=Montreal&req_statename=Quebec&reqdb.zip=00000&reqdb.magic=20&reqdb.wmo=71612", "https://www.wunderground.com/history/airport/KFUL/year/month/day/DailyHistory.html?req_city=Anaheim&req_state=CA&req_statename=California&reqdb.zip=92801&reqdb.magic=1&reqdb.wmo=99999"]
 
 end

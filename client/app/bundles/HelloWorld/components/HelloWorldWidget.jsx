@@ -4,6 +4,7 @@
 import React, { PropTypes } from 'react';
 import _ from 'lodash';
 
+
 // Simple example of a React "dumb" component
 export default class HelloWorldWidget extends React.Component {
   static propTypes = {
@@ -26,14 +27,15 @@ export default class HelloWorldWidget extends React.Component {
   handleChange(e) {
     const name = e.target.value;
     this.props.updateName(name);
+    this.props.onIncrement(name);
   }
 
   render() {
-    const { name } = this.props;
+    const { name, value } = this.props;
     return (
       <div className="container">
         <h3>
-          Hello, {name}!
+          Hello, {name} {value}!
         </h3>
         <hr />
         <form className="form-horizontal">
